@@ -10,8 +10,10 @@ module Juixe
       end
 
       module ClassMethods
-        def acts_as_commentable
-          has_many :comments, :as => :commentable, :dependent => :destroy
+        # Supported option
+        #   :include - Specify second-order associations that should be eager loaded
+        def acts_as_commentable(options={})
+          has_many :comments, :as => :commentable, :dependent => :destroy, :include => options[:include]
           include Juixe::Acts::Commentable::InstanceMethods
           extend Juixe::Acts::Commentable::SingletonMethods
         end
